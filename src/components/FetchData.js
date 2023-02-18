@@ -1,9 +1,6 @@
 import axios from 'axios';
 import React, { useRef, useEffect, useState } from 'react';
 
-
-// const baseURL = 'https://api-dev-plastico.westeurope.cloudapp.azure.com/v1/geojson/-1.05/43.47/-1.0/43.75?entity_type=trash';
-
 const useFetchData = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
