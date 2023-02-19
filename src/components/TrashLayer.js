@@ -41,7 +41,7 @@ const TrashLayer = props => {
         "id": "circle_trash",
         "type": "circle",
         "source": "data",
-        "minzoom":16,
+        "minzoom":13,
         "paint": circleConfig
       });
     }

@@ -3,7 +3,7 @@ const circleConfig = {
     'circle-radius': {
       'base': 2,
       'stops': [
-      [17, 3],
+      [15, 3],
       [22, 20]
       ]
       },
@@ -26,8 +26,8 @@ const circleConfig = {
     'circle-stroke-width': 1,
     'circle-opacity': {
       stops: [
-        [16, 0],
-        [17, 1]
+        [13, 0],
+        [14, 1]
       ]
     }
   }
