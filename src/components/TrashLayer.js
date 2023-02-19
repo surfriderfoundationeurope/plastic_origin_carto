@@ -3,13 +3,17 @@ import mapboxgl from 'mapbox-gl';
 import useFetchData from './FetchData';
 import heatmapConfig from '../assets/TrashHeatmapStyle';
 import circleConfig from '../assets/TrashCircleStyle';
+import { getTypeName } from '../assets/TypeId';
 
 const TrashLayer = props => {
   const [data, loading] = useFetchData(props.url);
 
-  // ADD LAYERS
   useEffect(() => {
-    if (loading || !data || !props.map) return ;
+    if (!data || !props.map) // || loading || !props.isMapLoaded) // return ;
+    {
+      // console.log("waiting as loading = " + loading + ", data = " + data + ", map = " + props.map + " and maploaded = " + props.isMapLoaded);
+      return;
+    }
 
     console.log(data)
   
@@ -43,17 +47,21 @@ const TrashLayer = props => {
     }
 
     props.map.on('click', 'circle_trash', (event) => {
+      const typeName = getTypeName(event.features[0].properties.type_id);
       new mapboxgl.Popup()
         .setLngLat(event.features[0].geometry.coordinates)
         .setHTML(`<strong>ID :</strong> ${event.features[0].properties.id}
-        <p>Type : ${event.features[0].properties.type_name}<\p>
-        <p>Date : ${event.features[0].properties.time}<\p>`)
+        <p><strong>Type : </strong>${typeName}</p>
+        <p><strong>Date : </strong>${event.features[0].properties.time}</p>
+        <p><strong>Rivière : </strong>${event.features[0].properties.river_name}</p>
+        `)
         .addTo(props.map);
     });
 
-  }, [loading, data, props.map]);
+  }, [data, props.map]); //, loading, props.isMapLoaded]);
 
   return null;
 };
 
 export default TrashLayer;
+
