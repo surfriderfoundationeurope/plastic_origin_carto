@@ -1,26 +1,26 @@
 export function getTypeName(typeId) {
     switch (typeId) {
       case 1:
-        return 'Fragment plastique'; //'Sheet / tarp / plastic bag / fragment';
+        return 'Plastic fragment'; //'Fragment plastique'; //'Sheet / tarp / plastic bag / fragment';
       case 2:
-        return 'Matériau isolant'; //'Insulating material';
+        return 'Insulating material'; //'Matériau isolant'; //'Insulating material';
       case 3:
-        return 'Bouteille'; //'Bottle-shaped';
+        return 'Bottle'; //'Bouteille'; //'Bottle-shaped';
       case 4:
-        return 'Canette'; //'Can-shaped';
+        return 'Can'; //'Canette'; //'Can-shaped';
       case 5:
-        return 'Rouleau'; //'Drum';
+        return 'Drum'; //'Rouleau'; //'Drum';
       case 6:
-        return 'Autre emballage'; //'Other packaging';
+        return 'Other packaging'; //'Autre emballage'; //'Other packaging';
       case 7:
-        return 'Pneu'; //'Tire';
+        return 'Tire'; //'Pneu'; //'Tire';
       case 8:
-        return 'Filet'; //'Fishing net / cord';
+        return 'Fishing net'; //'Filet'; //'Fishing net / cord';
       case 9:
-        return 'Facilement nommable'; //'Easily namable';
+        return 'Unclear'; //'Facilement nommable'; //'Easily namable';
       case 10:
-        return 'Indéterminé'; //'Unclear';
+        return 'Unclear'; //'Indéterminé'; //'Unclear';
       default:
-        return 'Indéterminé';
+        return 'Unclear'; //'Indéterminé';
     }
   }

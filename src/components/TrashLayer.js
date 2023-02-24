@@ -9,11 +9,7 @@ const TrashLayer = props => {
   const [data, loading] = useFetchData(props.url);
 
   useEffect(() => {
-    if (!data || !props.map) // || loading || !props.isMapLoaded) // return ;
-    {
-      // console.log("waiting as loading = " + loading + ", data = " + data + ", map = " + props.map + " and maploaded = " + props.isMapLoaded);
-      return;
-    }
+    if (!data || !props.map)  return ;
 
     console.log(data)
   
@@ -50,10 +46,10 @@ const TrashLayer = props => {
       const typeName = getTypeName(event.features[0].properties.type_id);
       new mapboxgl.Popup()
         .setLngLat(event.features[0].geometry.coordinates)
-        .setHTML(`<strong>ID :</strong> ${event.features[0].properties.id}
-        <p><strong>Type : </strong>${typeName}</p>
-        <p><strong>Date : </strong>${event.features[0].properties.time}</p>
-        <p><strong>Rivière : </strong>${event.features[0].properties.river_name}</p>
+        .setHTML(`<strong>ID:</strong> ${event.features[0].properties.id}
+        <p><strong>Type: </strong>${typeName}</p>
+        <p><strong>Date: </strong>${event.features[0].properties.time}</p>
+        <p><strong>River: </strong>${event.features[0].properties.river_name}</p>
         `)
         .addTo(props.map);
     });
