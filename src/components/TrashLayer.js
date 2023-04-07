@@ -4,9 +4,12 @@ import useFetchData from './FetchData';
 import heatmapConfig from '../assets/TrashHeatmapStyle';
 import circleConfig from '../assets/TrashCircleStyle';
 import { getTypeName } from '../assets/TypeId';
+import axios from 'axios';
 
 const TrashLayer = props => {
   const [data, loading] = useFetchData(props.url);
+  const [campaignData, setCampaignData] = useState(null);
+
 
   useEffect(() => {
     if (!data || !props.map)  return ;
@@ -42,19 +45,30 @@ const TrashLayer = props => {
       });
     }
 
-    props.map.on('click', 'circle_trash', (event) => {
+    props.map.on('click', 'circle_trash', async(event) => {
+      console.log(event.properties)
       const typeName = getTypeName(event.features[0].properties.type_id);
-      new mapboxgl.Popup()
-        .setLngLat(event.features[0].geometry.coordinates)
-        .setHTML(`<strong>ID:</strong> ${event.features[0].properties.id}
-        <p><strong>Type: </strong>${typeName}</p>
-        <p><strong>Date: </strong>${event.features[0].properties.time}</p>
-        <p><strong>River: </strong>${event.features[0].properties.river_name}</p>
-        `)
-        .addTo(props.map);
+      const campaignUrl = 'https://api-dev-plastico.westeurope.cloudapp.azure.com/v1/campaign/' + event.features[0].properties.id_ref_campaign_fk;
+      const response = await axios.get(campaignUrl);
+      try {
+        const dataCampaign = response.data;
+        console.log(dataCampaign.start_date);
+        console.log(event.features[0]);
+        if (event.features && event.features.length > 0) {
+          new mapboxgl.Popup()
+            .setLngLat(event.features[0].geometry.coordinates)
+            .setHTML(`<strong>ID:</strong> ${event.features[0].properties.id}
+            <p><strong>Type: </strong>${typeName}</p>
+            <p><strong>Date: </strong>${dataCampaign.start_date}</p>
+            <p><strong>River: </strong>${event.features[0].properties.river_name}</p>
+            `)
+            .addTo(props.map);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     });
-
-  }, [data, props.map]); //, loading, props.isMapLoaded]);
+  }, [data, props.map, setCampaignData]); //, loading, props.isMapLoaded]);
 
   return null;
 };
